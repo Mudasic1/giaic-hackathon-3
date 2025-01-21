@@ -1,3 +1,6 @@
+/* @typescript-eslint/no-explicit-any */
+
+
 import imageUrlBuilder from '@sanity/image-url';
 import { createClient } from '@sanity/client';
 

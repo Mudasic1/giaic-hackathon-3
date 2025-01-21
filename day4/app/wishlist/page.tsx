@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface Product {
   _id: string;
@@ -51,7 +52,7 @@ export default function Wishlist() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {wishlist.map((product) => (
             <div key={product._id} className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-300">
-              <img
+              <Image
                 src={product.productImage}
                 alt={product.title}
                 className="w-full h-48 object-cover rounded-md"

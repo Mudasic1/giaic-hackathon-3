@@ -1,0 +1,10 @@
+#blog{
+    background-image: url("/assets/bgImage.png");
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    opacity: 9;
+    height: 200px;
+    align-items: center;
+    color: white;
+  }

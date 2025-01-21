@@ -1,8 +1,7 @@
 #blog{
-    background-image: url("/assets/bgImage.png");
     display: flex;
     justify-content: center;
-    background-color: black;
+    background-color: blue;
     opacity: 9;
     height: 200px;
     align-items: center;

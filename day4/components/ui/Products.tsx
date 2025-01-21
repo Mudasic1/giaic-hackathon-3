@@ -8,7 +8,7 @@ import imageUrlBuilder from "@sanity/image-url";
 
 // Sanity client configuration
 const sanity = createClient({
-  projectId: "qtlc5g66", // Replace with your project ID
+  projectId: "qtlc5g66",
   dataset: "production",
   apiVersion: "2025-01-13",
   useCdn: true,
@@ -68,39 +68,29 @@ export default function Products() {
   }, []);
 
   const addToCart = (product: Product) => {
-    try {
-      const isInCart = cart.some((item) => item._id === product._id);
-      if (isInCart) {
-        alert("This item is already in your cart");
-        return;
-      }
-
-      const updatedCart = [...cart, product];
-      setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      alert("Item added to cart successfully");
-    } catch (err) {
-      console.error("Error adding to cart:", err);
-      alert("Failed to add item to cart. Please try again.");
+    const isInCart = cart.some((item) => item._id === product._id);
+    if (isInCart) {
+      alert("This item is already in your cart");
+      return;
     }
+
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    alert("Item added to cart successfully");
   };
 
   const addToWishlist = (product: Product) => {
-    try {
-      const isInWishlist = wishlist.some((item) => item._id === product._id);
-      if (isInWishlist) {
-        alert("This item is already in your wishlist");
-        return;
-      }
-
-      const updatedWishlist = [...wishlist, product];
-      setWishlist(updatedWishlist);
-      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-      alert("Item added to wishlist successfully");
-    } catch (err) {
-      console.error("Error adding to wishlist:", err);
-      alert("Failed to add item to wishlist. Please try again.");
+    const isInWishlist = wishlist.some((item) => item._id === product._id);
+    if (isInWishlist) {
+      alert("This item is already in your wishlist");
+      return;
     }
+
+    const updatedWishlist = [...wishlist, product];
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    alert("Item added to wishlist successfully");
   };
 
   if (isLoading) {

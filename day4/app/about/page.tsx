@@ -60,7 +60,7 @@ const About = () => {
             <ul className="space-y-4">
               {[1, 2, 3].map((post) => (
                 <li key={post} className="flex items-center space-x-3">
-                  <img
+                  <Image
                     className="w-16 h-16 object-cover rounded"
                     src={`https://via.placeholder.com/100x100?text=Thumb+${post}`}
                     alt="Thumbnail"

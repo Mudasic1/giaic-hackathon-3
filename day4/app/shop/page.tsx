@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
-import Link from "next/link";
+import Image from "next/image";
 
 const sanity = createClient({
   projectId: "qtlc5g66",
@@ -13,7 +13,9 @@ const sanity = createClient({
 });
 
 const builder = imageUrlBuilder(sanity);
-const urlFor = (source: any) => (source ? builder.image(source).url() : "/placeholder.png");
+const urlFor = (source: { asset?: { _ref: string } } | null | undefined): string => {
+  return source?.asset?._ref ? builder.image(source).url() : "/placeholder.png";
+};
 
 interface Product {
   _id: string;
@@ -58,8 +60,8 @@ export default function Shop() {
     fetchProducts();
 
     // Load cart and wishlist from localStorage
-    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]") as Product[];
+    const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]") as Product[];
     setCart(savedCart);
     setWishlist(savedWishlist);
   }, []);
@@ -97,18 +99,22 @@ export default function Shop() {
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <div key={product._id} className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-300">
-            <img
+          <div
+            key={product._id}
+            className="bg-white shadow-md rounded-md p-4 hover:shadow-lg transition-shadow duration-300"
+          >
+            <Image
               src={urlFor(product.productImage)}
               alt={product.title}
+              width={500} // Provide a default width
+              height={300} // Provide a default height
               className="w-full h-48 rounded-md object-cover"
             />
 
             <div className="mt-4">
-              {/* Link to Product Detail Page */}
-              <Link href={`/shop`} className="text-lg font-semibold text-gray-800 hover:text-blue-600">
+              <h2 className="text-lg font-semibold text-gray-800 hover:text-blue-600">
                 {product.title}
-              </Link>
+              </h2>
 
               <div className="flex justify-between items-center mt-2">
                 <div>
@@ -124,7 +130,10 @@ export default function Shop() {
 
             <div className="mt-4 flex flex-wrap gap-2">
               {product.tags.map((tag, index) => (
-                <span key={index} className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
+                <span
+                  key={index}
+                  className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full"
+                >
                   {tag}
                 </span>
               ))}

@@ -1,16 +1,19 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import heroBanner from "@/public/heroBanner.png";
 
 export default function Herobanner() {
   return (
-    <div className="relative flex items-center justify-center w-full h-[80vh] sm:h-[60vh]">
+    <section className="relative flex items-center justify-center w-full h-[80vh] sm:h-[60vh]">
       {/* Hero Image */}
       <Image
         src={heroBanner}
-        alt="Hero Banner"
+        alt="Modern furniture showcase in a stylish living room setting"
         className="w-full h-full object-cover"
         priority
+        quality={90}
+        placeholder="blur"
       />
       
       {/* Overlay Content */}
@@ -19,14 +22,20 @@ export default function Herobanner() {
           <p className="text-sm md:text-lg font-semibold text-yellow-800 mb-2">
             New Arrival
           </p>
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
             Discover Our Latest Collection
           </h1>
-          <p className="text-xs md:text-sm text-white">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, quos.
+          <p className="text-xs md:text-sm text-gray-800 mb-6">
+            Explore our curated selection of premium furniture pieces designed for modern living.
           </p>
+          <Link 
+            href="/shop" 
+            className="inline-block px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors"
+          >
+            Shop Now
+          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

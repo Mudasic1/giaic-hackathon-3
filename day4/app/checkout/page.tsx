@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { urlFor } from "@/lib/sanity";
 
 interface Product {
   _id: string;
@@ -28,8 +29,10 @@ export default function Checkout() {
   const router = useRouter();
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(storedCart);
+    if (typeof window !== "undefined") {
+      const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCart(storedCart);
+    }
   }, []);
 
   const totalPrice = cart.reduce((total, product) => total + product.price, 0);
@@ -129,9 +132,7 @@ export default function Checkout() {
                 >
                   <div className="flex items-center gap-4">
                     <Image
-                      src={`https://cdn.sanity.io/images/qtlc5g66/production/${product.productImage.asset._ref
-                        .replace("image-", "")
-                        .replace("-jpg", ".jpg")}`}
+                      src={urlFor(product.productImage).url()}
                       alt={product.title}
                       width={60}
                       height={60}

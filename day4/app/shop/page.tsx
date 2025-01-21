@@ -106,7 +106,7 @@ export default function Shop() {
 
             <div className="mt-4">
               {/* Link to Product Detail Page */}
-              <Link href={`/shop/${product._id}`} className="text-lg font-semibold text-gray-800 hover:text-blue-600">
+              <Link href={`/shop`} className="text-lg font-semibold text-gray-800 hover:text-blue-600">
                 {product.title}
               </Link>
 

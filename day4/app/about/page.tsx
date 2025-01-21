@@ -1,9 +1,10 @@
 "use client"
 
 import "./style.css"
+import Image from 'next/image'
 
 
-const page = () => {
+const About = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       
@@ -18,10 +19,12 @@ const page = () => {
         <section className="md:col-span-2 space-y-6">
           {[1, 2, 3].map((post, index) => (
             <article key={index} className="bg-white shadow rounded-lg overflow-hidden">
-              <img
+              <Image
                 className="w-full h-48 object-cover"
-                src={`https://www.treehugger.com/thmb/b48BkKWASDpW6KhLBQeC3-kz81A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/business-woman-working-at-office-with-documents-on-his-desk--business-woman-holding-pens-and-papers-making-notes-in-documents-on-the-table--hands-of-financial-manager-taking-notes-1185256894-31eb14854db84d2480efc67d4d563c4d.jpg`}
+                src="/images/business-woman.jpg"
                 alt="Post"
+                width={1500}
+                height={800}
               />
               
               <div className="p-4">
@@ -76,5 +79,5 @@ const page = () => {
   )
 }
 
-export default page
+export default About
 

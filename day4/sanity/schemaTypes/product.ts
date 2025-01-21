@@ -8,42 +8,60 @@ export const product = defineType({
         {
             name: "title",
             title: "Title",
-            validation: (rule) => rule.required(),
-            type: "string"
+            type: "string",
+            validation: (rule) => rule.required().min(2).max(100)
         },
         {
-            name:"description",
-            type:"text",
-            validation: (rule) => rule.required(),
-            title:"Description",
+            name: "description",
+            type: "text",
+            title: "Description",
+            validation: (rule) => rule.required().min(10).max(1000)
         },
         {
             name: "productImage",
             type: "image",
+            title: "Product Image",
             validation: (rule) => rule.required(),
-            title: "Product Image"
+            options: {
+                hotspot: true
+            }
         },
         {
             name: "price",
             type: "number",
-            validation: (rule) => rule.required(),
             title: "Price",
+            validation: (rule) => rule.required().positive()
         },
         {
             name: "tags",
             type: "array",
             title: "Tags",
-            of: [{ type: "string" }]
+            of: [{ type: "string" }],
+            options: {
+                layout: 'tags'
+            }
         },
         {
-            name:"dicountPercentage",
-            type:"number",
-            title:"Discount Percentage",
+            name: "discountPercentage",
+            type: "number",
+            title: "Discount Percentage",
+            validation: (rule) => rule.min(0).max(100)
         },
         {
-            name:"isNew",
-            type:"boolean",
-            title:"New Badge",
+            name: "isNew",
+            type: "boolean",
+            title: "New Badge",
+            initialValue: false
+        },
+        {
+            name: "slug",
+            type: "slug",
+            title: "Slug",
+            options: {
+                source: "title",
+                maxLength: 96
+            },
+            validation: (rule) => rule.required()
         }
     ]
 })

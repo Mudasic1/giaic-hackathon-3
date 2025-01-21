@@ -21,20 +21,26 @@ export default function Cart() {
   const router = useRouter();
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(storedCart);
+    if (typeof window !== 'undefined') {
+      const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCart(storedCart);
+    }
   }, []);
 
   const removeFromCart = (productId: string) => {
     const updatedCart = cart.filter((product) => product._id !== productId);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
   };
 
   const totalPrice = cart.reduce((total, product) => total + product.price, 0);
 
   const handleCheckout = () => {
-    localStorage.setItem('checkoutCart', JSON.stringify(cart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('checkoutCart', JSON.stringify(cart));
+    }
     router.push("/checkout");
   };
 

@@ -1,11 +1,11 @@
 import sanityClient from '@sanity/client';
 
 const client = sanityClient({
-  projectId: "qtlc5g66",
+  projectId: "aw7xrfor",
   dataset: 'production',
   useCdn: true,
-  apiVersion: '2025-01-13',
-  token: 'skWR0FKmeEKB0V0Vd9xtVr5AfUhwTetZ2YdlR1AAdqwNifV5TKDzvudLnUQBo38Wl6pCCLMpZuwxZmmsmDAx3OIJEFjyMXhegstZNfxE3abdP6R5ZdETctFAE9AiREiiA51LueJsxR9xpL96zrzJ4aH9F9ohSepJNZsNQRo60QOm6QXOb681',
+  apiVersion: '2024-01-22',
+  token: "skCSatsDgNljt9PQuyX2m0KEHLQV76boEuu2Ra2gLQUQGmy4SQOjwf93ybPI4WeFDLmEXLr8pVDddqBXZ3mVZ3MRAmoi6CXtmV8OjIzsviDNrFaggm49tZe0lXepEtM6AFgfHjIKuE0Gk6PbWXPaPXGLilrLPwh1uZ8vyIMwmREGJqMNQKpB",
 });
 
 async function uploadImageToSanity(imageUrl) {

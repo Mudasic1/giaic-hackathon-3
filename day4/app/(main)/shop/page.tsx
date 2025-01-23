@@ -6,9 +6,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 
 const sanity = createClient({
-  projectId: "qtlc5g66",
+  projectId: "aw7xrfor",
   dataset: "production",
-  apiVersion: "2025-01-13",
+  apiVersion: "2025-01-22",
   useCdn: true,
 });
 

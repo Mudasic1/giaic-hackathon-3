@@ -65,26 +65,34 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Icons */}
+        {/* Right Side: Icons and Authentication */}
         <div className="flex items-center gap-3 sm:gap-4">
-          {/* Search Icon */}
-          <button 
-            onClick={() => setSearchOpen(!searchOpen)}
-            className="p-1"
-            aria-label="Toggle search"
-          >
-            <Image src="/search.svg" alt="" width={20} height={20} className="sm:w-[25px] sm:h-[25px]" />
-          </button>
-          
-          {/* Wishlist Icon */}
-          <Link href="/wishlist" className="p-1" aria-label="Wishlist">
-            <Image src="/wishlist.svg" alt="" width={20} height={20} className="sm:w-[25px] sm:h-[25px]" />
-          </Link>
-          
-          {/* Cart Icon */}
-          <Link href="/cart" className="p-1" aria-label="Shopping cart">
-            <Image src="/cart.svg" alt="" width={20} height={20} className="sm:w-[25px] sm:h-[25px]" />
-          </Link>
+          {/* Desktop Icons - Only show on large screens */}
+          <div className="hidden lg:flex items-center gap-4 mr-4">
+            <Link 
+              href="/wishlist" 
+              className="hover:opacity-75 transition-opacity"
+              aria-label="Wishlist"
+            >
+              <Image src="/wishlist.svg" alt="Wishlist" width={24} height={24} />
+            </Link>
+            
+            <Link 
+              href="/cart" 
+              className="hover:opacity-75 transition-opacity"
+              aria-label="Cart"
+            >
+              <Image src="/cart.svg" alt="Cart" width={24} height={24} />
+            </Link>
+            
+            <button 
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="hover:opacity-75 transition-opacity"
+              aria-label="Search"
+            >
+              <Image src="/search.svg" alt="Search" width={24} height={24} />
+            </button>
+          </div>
 
           {/* User Authentication */}
           {isSignedIn ? (
@@ -116,22 +124,79 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Keeping the updated version */}
       {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={handleClickOutside}>
-          <div className="bg-white shadow-md w-64" onClick={(e) => e.stopPropagation()}>
-            <ul className="flex flex-col gap-4 p-4">
+        <div 
+          className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center" 
+          onClick={handleClickOutside}
+        >
+          <div 
+            className="bg-white shadow-md w-full mx-4 max-w-sm rounded-lg py-6" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ul className="flex flex-col items-center gap-6 p-4">
               {NavItems.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={item.link}
-                    className="block text-lg font-medium text-gray-700 hover:text-blue-500 transition"
+                    className="block text-xl font-medium text-gray-700 hover:text-blue-500 transition"
                     onClick={() => setMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 </li>
               ))}
+              {/* Mobile Menu Icons */}
+              <div className="flex items-center gap-8 mt-4">
+                <Link 
+                  href="/wishlist" 
+                  className="flex flex-col items-center gap-1"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Image src="/wishlist.svg" alt="Wishlist" width={28} height={28} />
+                  <span className="text-sm">Wishlist</span>
+                </Link>
+                
+                <Link 
+                  href="/cart" 
+                  className="flex flex-col items-center gap-1"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Image src="/cart.svg" alt="Cart" width={28} height={28} />
+                  <span className="text-sm">Cart</span>
+                </Link>
+                
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSearchOpen(!searchOpen);
+                    setMenuOpen(false);
+                  }}
+                  className="flex flex-col items-center gap-1"
+                >
+                  <Image src="/search.svg" alt="Search" width={28} height={28} />
+                  <span className="text-sm">Search</span>
+                </button>
+              </div>
+              {/* Mobile Authentication */}
+              <div className="mt-6">
+                {isSignedIn ? (
+                  <div className="flex flex-col items-center gap-4">
+                    <UserButton afterSignOutUrl="/" />
+                    <SignOutButton>
+                      <button className="text-red-500 text-base hover:underline">
+                        Sign Out
+                      </button>
+                    </SignOutButton>
+                  </div>
+                ) : (
+                  <SignInButton>
+                    <button className="rounded-full bg-blue-500 text-white text-base px-6 py-2 hover:bg-blue-600 transition">
+                      Sign In
+                    </button>
+                  </SignInButton>
+                )}
+              </div>
             </ul>
           </div>
         </div>

@@ -1,6 +1,35 @@
-import React from 'react'
+"use client"
+import React, { FormEvent, useState } from 'react'
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 const Contact = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    console.log('Form submitted:', formData);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
     <header className="bg-white shadow">
@@ -34,30 +63,47 @@ const Contact = () => {
           </div>
         </div>
 
-        <form className="bg-white shadow rounded-lg p-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+        <form 
+          className="bg-white shadow rounded-lg p-6 space-y-4" 
+          onSubmit={handleSubmit}
+          aria-label="Contact form"
+        >
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Your Name</label>
             <input
               id="name"
+              name="name"
               type="text"
+              required
+              value={formData.name}
+              onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-yellow-500"
               placeholder="Your Name"
+              aria-required="true"
             />
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
             <input
               id="email"
+              name="email"
               type="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-yellow-500"
               placeholder="Your Email"
+              aria-required="true"
             />
           </div>
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700">Subject</label>
             <input
               id="subject"
+              name="subject"
               type="text"
+              value={formData.subject}
+              onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-yellow-500"
               placeholder="Subject (Optional)"
             />
@@ -66,12 +112,21 @@ const Contact = () => {
             <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
             <textarea
               id="message"
+              name="message"
+              required
+              value={formData.message}
+              onChange={handleChange}
               className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-yellow-500"
               rows={4}
               placeholder="Your Message"
+              aria-required="true"
             ></textarea>
           </div>
-          <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">
+          <button 
+            type="submit" 
+            className="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600"
+            aria-label="Submit contact form"
+          >
             Submit
           </button>
         </form>

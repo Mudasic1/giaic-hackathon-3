@@ -1,5 +1,3 @@
-/* @typescript-eslint/no-explicit-any */
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -10,24 +8,31 @@ import imageUrlBuilder from "@sanity/image-url";
 
 // Sanity client configuration
 const sanity = createClient({
-  projectId: "qtlc5g66",
+  projectId: "aw7xrfor",
   dataset: "production",
-  apiVersion: "2025-01-13",
+  apiVersion: "2024-01-22",
   useCdn: true,
 });
 
 // Image URL builder
 const builder = imageUrlBuilder(sanity);
-const urlFor = (source: any) => (source ? builder.image(source).url() : "/placeholder.png");
+
+// Sanity image source type
+type SanityImageSource = {
+  _ref: string;
+  _type: "image";
+};
+
+const urlFor = (source: SanityImageSource | undefined): string => {
+  return source ? builder.image(source).url() : "/placeholder.png";
+};
 
 // TypeScript interface for product data
 interface Product {
   _id: string;
   title: string;
   productImage?: {
-    asset?: {
-      _ref?: string;
-    };
+    asset?: SanityImageSource;
   };
   price?: string;
 }
@@ -122,7 +127,7 @@ export default function Products() {
           >
             <div className="relative w-full h-64">
               <Image
-                src={urlFor(product.productImage?.asset?._ref)}
+                src={urlFor(product.productImage?.asset)}
                 alt={product.title || "Product image"}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

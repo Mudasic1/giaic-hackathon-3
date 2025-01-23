@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = localFont({
@@ -17,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hackathon Day 4",
+  title: "GIAIC Hackathon Day 4",
   description: "GIAIC Hackathon Day 4",
 };
 
@@ -27,15 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider dynamic>
+    <ClerkProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
     </ClerkProvider>
